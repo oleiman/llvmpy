@@ -239,6 +239,40 @@ class CBuilder(object):
         ret = libc.printf(fmt, *args)
         return CTemp(self, ret)
 
+    def open(self, fname, flags):
+        '''open() from libc
+
+        fname : a character string holding the filename.
+        flags : e.g. O_RDONLY.
+        '''
+        from .libc import LibC
+        libc = LibC(self)
+        ret = libc.open(fname, flags)
+        return CTemp(self, ret)
+
+    def read(self, fd, buf, size):
+        '''read() from libc
+        
+        fd   : a file descriptor pointing to a file open for reading
+        buf  : a void pointer to the destination buffer
+        size : the number of bytes to read
+        '''
+        from .libc import LibC
+        libc = LibC(self)
+        ret = libc.read(fd, buf, size)
+        return CTemp(self, ret)
+
+    def calloc(self, nmemb, size):
+        '''calloc() from libc
+
+        nmemb : the number of elements in the array
+        size  : the size of each element in bytes
+        '''
+        from .libc import LibC
+        libc = LibC(self)
+        ret = libc.calloc(nmemb, size)
+        return CTemp(self, ret)
+
     def debug(self, *args):
         '''debug print
 
